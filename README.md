@@ -29,7 +29,7 @@ The frontend is served in the root path, which happens to be `localhost:8080` in
 
 
 - Mobile version: 
-![alt text](docs/app-mobile-responsive.png)
+![alt text](docs/mobile-responsive.png)
 
 ## Versions
 
