@@ -24,6 +24,13 @@ When the submit button is clicked, the browser shows a loading animation before 
 
 The frontend is served in the root path, which happens to be `localhost:8080` in springboot by default.
 
+- Desktop version: 
+![alt text](docs/app-desktop.png)
+
+
+- Mobile version: 
+![alt text](docs/app-mobile-responsive.png)
+
 ## Versions
 
 The test has been wrote using the same versions as the initial code: Gradle 5.4.1 and Java 8.
