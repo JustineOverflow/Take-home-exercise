@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="vendor/axios.js"></script>
+
+    <title>Quoting Engine</title>
+</head>
+<body>
+
+<section id="header">
+    <h1 class="header">Welcome to this quoting engine</h1>
+</section>
+
+<section id="quote" class="quote">
+    <p class="quote-text">Please fill-in the form</p>
+
+    <form id="form">
+        <div class="quote-input">
+            <label for="pickup_postcode">Pickup postcode:</label>
+            <input type="text" id="pickup_postcode" name="pickup_postcode">
+            <p id="display_error-pickup" class="error hide">You need to enter a Pickup postcode!</p>
+        </div>
+
+        <div class="quote-input">
+            <label for="delivery_postcode">Delivery postcode:</label>
+            <input type="text" id="delivery_postcode" name="delivery_postcode">
+            <p id="display_error-delivery" class="error hide">You need to enter a Delivery postcode!</p>
+        </div>
+
+        <p class="quote-text">Please choose the vehicle:</p>
+        <p id="display_error-vehicle" class="error hide">You need to choose a vehicle!</p>
+
+        <div class="quote-input">
+            <div>
+                <input type="radio" id="bicycle" name="vehicle" value="bicycle" checked>
+                <label for="bicycle">Bicycle</label>
+            </div>
+
+            <div>
+                <input type="radio" id="motorbike" name="vehicle" value="motorbike">
+                <label for="motorbike">Motorbike</label>
+            </div>
+
+            <div>
+                <input type="radio" id="parcel_car" name="vehicle" value="parcel_car">
+                <label for="parcel_car">Parcel car</label>
+            </div>
+
+            <div>
+                <input type="radio" id="small_van" name="vehicle" value="small_van">
+                <label for="small_van">Small van</label>
+            </div>
+
+            <div>
+                <input type="radio" id="large_van" name="vehicle" value="large_van">
+                <label for="large_van">Large van</label>
+            </div>
+        </div>
+
+        <input class="button-submit" id="submit" type="submit" value="Submit">
+    </form>
+
+    <div id="display_loading" class="loading hide"></div>
+
+    <p><span id="display_quote" class="hide">A delivery from <span
+            id="result_pickup_postcode">{pickup_postcode}</span> to <span
+            id="result_delivery_postcode">{delivery_postcode}</span> using a
+        <span id="result_vehicle">{vehicle}</span> will cost you £<span id="result_price">{prices}</span>.</span></p>
+</section>
+
+</body>
+
+<script>
+
+    document.getElementById('form').onsubmit = event => {
+        event.preventDefault()
+
+        const pickupPostcode = event.target.querySelector('[name=pickup_postcode]').value
+        const deliveryPostcode = event.target.querySelector('[name=delivery_postcode]').value
+        const vehicle = event.target.querySelector('input[name="vehicle"]:checked').value
+
+        let error = false;
+        if (!pickupPostcode) {
+            document.getElementById('display_error-pickup').className = "error show";
+            error = true;
+        } else {
+            document.getElementById('display_error-pickup').className = "error hide";
+        }
+        if (!deliveryPostcode) {
+            document.getElementById('display_error-delivery').className = "error show";
+            error = true
+        } else {
+            document.getElementById('display_error-delivery').className = "error hide";
+        }
+        if (!vehicle) {
+            document.getElementById('display_error-vehicle').className = "error show";
+            error = true;
+        } else {
+            document.getElementById('display_error-vehicle').className = "error hide";
+        }
+        if (error)
+            return
+
+        document.getElementById('display_loading').className = "loading show";
+
+        axios({
+            method: 'post',
+            url: '/quote',
+            data: {pickupPostcode, deliveryPostcode, vehicle},
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(result => {
+            const data = result.data
+            document.getElementById('result_pickup_postcode').innerText = data.pickupPostcode;
+            document.getElementById('result_delivery_postcode').innerText = data.deliveryPostcode;
+            document.getElementById('result_vehicle').innerText = data.vehicle.replace('_', ' ');
+            document.getElementById('result_price').innerText = data.price;
+
+            document.getElementById('display_quote').className = "show";
+            document.getElementById('display_loading').className = "loading hide";
+        });
+    }
+
+</script>
+
+</html>

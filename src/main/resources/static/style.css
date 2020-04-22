@@ -1,0 +1,149 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+.html {
+    font-size: 62.5%;
+}
+
+body {
+    font-family: system-ui, sans-serif;
+    background-color: aliceblue;
+    color: black;
+}
+
+input {
+    padding: 1rem;
+    margin: 1rem;
+    margin-right: 0;
+    border: 1px solid #1a6d6d;
+    border-radius: 5px;
+}
+
+input:focus {
+    outline: none;
+}
+
+.header {
+    background-color: #1a6d6d;
+    color: aliceblue;
+    letter-spacing: 0.4rem;
+    font-size: 1.5rem;
+    font-weight: 200;
+    text-align: center;
+    padding: 2rem;
+}
+
+.quote {
+    text-align: center;
+    padding: 2rem;
+}
+
+.quote-text {
+    font-size: 1.3rem;
+    padding: 2rem;
+    color: #1a6d6d;
+}
+
+.quote-input {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    grid-auto-flow: column;
+}
+
+.button-submit {
+    margin: 2rem 1rem;
+    width: min-content;
+    padding: 1rem;
+    font-size: 1.5rem;
+    background-color: #1a6d6d;
+    color: linen;
+}
+
+.button-submit:hover {
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.button-submit:active {
+    cursor: pointer;
+    transform: translateY(0px);
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.loading {
+    border: 5px solid lightgrey;
+    border-top: 5px solid #1a6d6d;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    animation: loading 2s linear infinite;
+    margin: 0 auto;
+}
+
+.error {
+    font-style: italic;
+    color: red;
+    margin: 1rem;
+    font-size: 0.8rem;
+}
+
+@keyframes loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@media all and (max-width: 600px) {
+
+    body {
+        font-size: 1.5rem;
+    }
+
+    input {
+        padding: 1rem 4rem;
+    }
+
+    .header {
+        letter-spacing: 0;
+        font-size: 1.8rem;
+    }
+
+    .quote-text {
+        font-size: 1.8rem;
+        font-weight: 200;
+    }
+
+    .quote-input {
+        grid-auto-flow: row;
+    }
+
+    label {
+        font-size: 1.5rem;
+    }
+
+    .button-submit {
+        padding: 1.5rem;
+        margin: 3rem;
+        font-size: 2rem;
+    }
+}
+
+
+
+
